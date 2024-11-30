@@ -1,6 +1,7 @@
 # SaaS-MDC
 
 Ce repository contient le code source pour la création d'un SaaS avec les technologies suivantes :
+
 - Next.js
 - NextAuth
 - Prisma
@@ -17,37 +18,37 @@ Ce repository contient le code source pour la création d'un SaaS avec les techn
 ## Installation
 
 1. Clonez ce repository :
-    ```bash
-    git clone https://github.com/votre-utilisateur/SaaS-MDC.git
-    ```
+   ```bash
+   git clone https://github.com/votre-utilisateur/SaaS-MDC.git
+   ```
 2. Naviguez dans le dossier du projet :
-    ```bash
-    cd SaaS-MDC
-    ```
+   ```bash
+   cd SaaS-MDC
+   ```
 3. Installez les dépendances :
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 4. Configurez les variables d'environnement. Créez un fichier `.env.local` et ajoutez les variables nécessaires :
-    ```bash
-    NEXTAUTH_URL=http://localhost:3000
-    DATABASE_URL="file:./dev.db"
-    GITHUB_ID=your-github-id
-    GITHUB_SECRET=your-github-secret
-    GOOGLE_CLIENT_ID=your-google-client-id
-    GOOGLE_CLIENT_SECRET=your-google-client-secret
-    STRIPE_KEY_SECRET=your-stripe-key-secret
-    STRIPE_API_ID=your-stripe-api-id
-    STRIPE_WEBHOOK_SECRET=your-stripe-webhook-secret
-    ```
+   ```bash
+   NEXTAUTH_URL=http://localhost:3000
+   DATABASE_URL="file:./dev.db"
+   GITHUB_ID=your-github-id
+   GITHUB_SECRET=your-github-secret
+   GOOGLE_CLIENT_ID=your-google-client-id
+   GOOGLE_CLIENT_SECRET=your-google-client-secret
+   STRIPE_KEY_SECRET=your-stripe-key-secret
+   STRIPE_API_ID=your-stripe-api-id
+   STRIPE_WEBHOOK_SECRET=your-stripe-webhook-secret
+   ```
 5. Exécutez les migrations de Prisma pour configurer la base de données :
-    ```bash
-    npx prisma migrate dev --name init
-    ```
+   ```bash
+   npx prisma migrate dev --name init
+   ```
 6. Lancez l'application en mode développement :
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   npm run dev
+   ```
 
 ## Utilisation
 
@@ -56,6 +57,7 @@ Vous pouvez maintenant accéder à l'application SaaS à l'adresse `http://local
 ## Contribution
 
 Les contributions sont les bienvenues ! Si vous souhaitez contribuer, veuillez suivre ces étapes :
+
 1. Forkez ce repository.
 2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/ma-fonctionnalite`).
 3. Commitez vos modifications (`git commit -am 'Ajoutez ma fonctionnalité'`).

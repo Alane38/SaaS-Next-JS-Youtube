@@ -1,41 +1,38 @@
-import { headers } from "next/headers"
-import Stripe from "stripe"
-import { stripe } from "@/lib/stripe"
-import { prisma } from "@/lib/db"
+import { headers } from "next/headers";
+import Stripe from "stripe";
+import { stripe } from "@/lib/stripe";
+import { prisma } from "@/lib/db";
 
+export async function POST(req: Request) {
+  const body = await req.text();
+  const signature = headers().get("Stripe-signature") as string;
 
-export async function POST(req: Request){
-  const body = await req.text()
-  const signature = headers().get("Stripe-signature") as string
-
-  let event: Stripe.Event
+  let event: Stripe.Event;
 
   try {
-
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET as string
-    )
-
-  }catch(error: unknown){
-    return new Response('Erreur webhook stripe', {status: 400})
+      process.env.STRIPE_WEBHOOK_SECRET as string,
+    );
+  } catch (error: unknown) {
+    return new Response("Erreur webhook stripe", { status: 400 });
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
 
-  if(event.type === "checkout.session.completed" ){
+  if (event.type === "checkout.session.completed") {
     const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
+      session.subscription as string,
     );
-    const customerId = String(session.customer)
+    const customerId = String(session.customer);
 
     const user = await prisma.user.findUnique({
       where: {
         stripeCustomerId: customerId,
       },
     });
-    if(!user) throw new Error("Utilisateur inexistant");
+    if (!user) throw new Error("Utilisateur inexistant");
 
     await prisma.subscription.create({
       data: {
@@ -50,11 +47,10 @@ export async function POST(req: Request){
     });
   }
 
-  if (event.type === "invoice.payment_succeeded"){
+  if (event.type === "invoice.payment_succeeded") {
     const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
+      session.subscription as string,
     );
-
 
     await prisma.subscription.update({
       where: {
@@ -65,8 +61,8 @@ export async function POST(req: Request){
         currentPeriodStart: subscription.current_period_start,
         currentPeriodEnd: subscription.current_period_end,
         status: subscription.status,
-      }
-    })
+      },
+    });
   }
-  return new Response(null, {status: 200})
+  return new Response(null, { status: 200 });
 }

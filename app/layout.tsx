@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/lib/SessionWrapper";
-import {ThemeProvider} from "@/app/components/theme-provider"
-import Nav from "./components/Nav"
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ThemeProvider } from "@/app/components/theme-provider";
+import Nav from "./components/Nav";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,21 +19,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  
   return (
     <html lang="en">
       <body className={`${inter.className} theme-violet`}>
         <SessionWrapper>
           <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Nav/>
-              {children}
-              <ToastContainer
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Nav />
+            {children}
+            <ToastContainer
               position="top-right"
               autoClose={5000}
               hideProgressBar={false}
@@ -44,8 +42,8 @@ export default function RootLayout({
               draggable
               pauseOnHover
               theme="dark"
-              />
-            </ThemeProvider>
+            />
+          </ThemeProvider>
         </SessionWrapper>
       </body>
     </html>
